@@ -1,0 +1,22 @@
+(* Función para verificar si un número es primo *)
+EsPrimo[n_] := Module[{i},
+  If[n < 2, Return[False]];  
+  For[i = 2, i <= Sqrt[n], i++, 
+    If[Mod[n, i] == 0, Return[False]]  (* Si es divisible, no es primo *)
+  ];
+  Return[True];  (* Si no encontró divisores, es primo *)
+]
+
+
+Print["Ingresa un número entero: "];
+n = Input[];
+
+(* Verificar que es un entero positivo *)
+If[IntegerQ[n] && n > 0,
+  If[EsPrimo[n],
+    Print[n, " es un número primo."],
+    Print[n, " no es un número primo."]
+  ],
+  Print["Por favor, ingresa un número entero positivo."]
+]
+

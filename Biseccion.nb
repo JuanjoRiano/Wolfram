@@ -1,0 +1,54 @@
+(* Algoritmo de Bisección en Wolfram Language *)
+
+Biseccion[f_, a_, b_, tol_: 10^-6, maxIter_: 100] := Module[
+  {c, iter = 0},
+  
+  (* Verificar que f(a) y f(b) tengan signos opuestos *)
+  If[f[a] * f[b] >= 0, 
+    Return["El intervalo no es válido. f(a) y f(b) deben tener signos opuestos."]
+  ];
+  
+  (* Método de Bisección *)
+  While[(b - a) > tol && iter < maxIter,
+    c = (a + b)/2; (* Punto medio *)
+    
+    (* Verificar si encontramos la raíz con la tolerancia *)
+    If[Abs[f[c]] < tol, Return[c]];
+    
+    (* Actualizar el intervalo *)
+    If[f[a] * f[c] < 0, b = c, a = c];
+    
+    iter++;
+  ];
+  
+  (* Devolver la mejor aproximación encontrada *)
+  Return[c]
+]
+
+(* Pedir la función al usuario *)
+Print["Ingresa la función en términos de x (Ejemplo: Sin[x] - x/2): "];
+f = ToExpression["Function[x, " <> InputString[] <> "]"];
+
+(* Pedir el intervalo [a, b] *)
+Print["Ingresa el valor de a: "];
+a = Input[];
+Print["Ingresa el valor de b: "];
+b = Input[];
+
+(* Ejecutar el método de bisección *)
+raiz = Biseccion[f, a, b];
+
+(* Mostrar el resultado *)
+Print["La raíz aproximada es: ", raiz];
+
+(* 
+Ejemplo;
+Ingresa la función en términos de x (Ejemplo: Sin[x] - x/2): 
+Cos[x] - x
+Ingresa el valor de a:
+0
+Ingresa el valor de b:
+2
+La raíz aproximada es: 0.739085
+*)
+

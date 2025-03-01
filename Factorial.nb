@@ -1,0 +1,21 @@
+(* Definición del factorial recursivo *)
+FactorialRecursive[n_] := If[n == 0, 1, n * FactorialRecursive[n - 1]]
+
+(* Definición del factorial iterativo *)
+FactorialIterative[n_] := Module[{res = 1, i},
+  For[i = 1, i <= n, i++, res *= i];
+  res
+]
+
+(* Pedir un número al usuario *)
+Print["Ingresa un número entero: "];
+n = Input[];
+
+(* Verificar que es un entero no negativo *)
+If[IntegerQ[n] && n >= 0,
+  Print["Factorial recursivo de ", n, " es ", FactorialRecursive[n]];
+  Print["Factorial iterativo de ", n, " es ", FactorialIterative[n]];
+  ,
+  Print["Por favor, ingresa un número entero no negativo."]
+]
+

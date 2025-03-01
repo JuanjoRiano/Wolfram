@@ -1,0 +1,27 @@
+(* Algoritmo de Euclides recursivo *)
+MCDRecursivo[a_, b_] := If[b == 0, a, MCDRecursivo[b, Mod[a, b]]]
+
+(* Algoritmo de Euclides iterativo *)
+MCDIterativo[a_, b_] := Module[{x = a, y = b, temp},
+  While[y != 0,
+    temp = y;
+    y = Mod[x, y];
+    x = temp;
+  ];
+  x
+]
+
+(* Pedir dos números al usuario *)
+Print["Ingresa el primer número: "];
+a = Input[];
+Print["Ingresa el segundo número: "];
+b = Input[];
+
+(* Verificar que sean enteros positivos *)
+If[IntegerQ[a] && IntegerQ[b] && a > 0 && b > 0,
+  Print["MCD recursivo de ", a, " y ", b, " es ", MCDRecursivo[a, b]];
+  Print["MCD iterativo de ", a, " y ", b, " es ", MCDIterativo[a, b]];
+  ,
+  Print["Por favor, ingresa dos números enteros positivos."]
+]
+
